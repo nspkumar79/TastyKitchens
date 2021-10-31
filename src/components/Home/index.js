@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie'
-import {Redirect, Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 import Header from '../Header'
-import ReactSlider from '../ReactSlider'
+
+import AllRestaurantSection from '../AllRestaurantSection'
 
 import './index.css'
 
@@ -15,7 +16,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <ReactSlider />
+      <AllRestaurantSection />
     </>
   )
 }
