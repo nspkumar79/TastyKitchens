@@ -1,4 +1,4 @@
-.home-header {
+.restaurant-header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .home-header {
+  .restaurant-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -17,8 +17,10 @@
     width: 80%;
   }
 }
-
-.home-list-heading {
+.header-text-container {
+  align-self: flex-start;
+}
+.restaurant-list-heading {
   font-family: DM Sans;
   font-style: normal;
   font-weight: bold;
@@ -28,7 +30,7 @@
 
   color: #183b56;
 }
-.home-list-para {
+.restaurant-list-para {
   font-family: DM Sans;
   font-style: normal;
   font-weight: 500;
@@ -42,7 +44,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .home-list-heading {
+  .restaurant-list-heading {
     font-family: DM Sans;
     font-style: normal;
     font-weight: bold;
@@ -51,8 +53,9 @@
     /* identical to box height, or 150% */
 
     color: #183b56;
+    margin-bottom: 12px;
   }
-  .home-list-para {
+  .restaurant-list-para {
     font-family: DM Sans;
     font-style: normal;
     font-weight: 500;
@@ -63,12 +66,19 @@
     /* Light / blue-gray / 500 */
 
     color: #64748b;
+    margin-top: 0px;
   }
 }
 
 .sort-by-container {
   display: flex;
   align-items: center;
+  align-self: flex-start;
+}
+@media screen and (min-width: 768px) {
+  .sort-by-container {
+    align-self: center;
+  }
 }
 
 .sort-by-icon {

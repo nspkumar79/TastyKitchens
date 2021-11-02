@@ -10,10 +10,10 @@ const RestaurantHeader = props => {
 
   const {sortByOptions, activeOptionId} = props
   return (
-    <div className="home-header">
-      <div>
-        <h1 className="home-list-heading">Popular Restaurants</h1>
-        <p className="home-list-para">
+    <div className="restaurant-header">
+      <div className="header-text-container">
+        <h1 className="restaurant-list-heading">Popular Restaurants</h1>
+        <p className="restaurant-list-para">
           Select Your favourite restaurant special dish and make your day
           happy...
         </p>
