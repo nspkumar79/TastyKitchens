@@ -1,6 +1,10 @@
-.restaurant-item {
+.link-item {
+  text-decoration: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+.restaurant-item {
   width: 100%;
   margin-bottom: 24px;
 }
