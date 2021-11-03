@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
@@ -45,6 +44,7 @@ class RestaurantDetails extends Component {
     imageUrl: data.image_url,
     name: data.name,
     cost: data.cost,
+    rating: data.rating,
     id: data.id,
   })
 
@@ -57,7 +57,7 @@ class RestaurantDetails extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
     const jwtToken = Cookies.get('jwt_token')
-    const apiUrl = `'https://apis.ccbp.in/restaurants-list/${id}'`
+    const apiUrl = `https://apis.ccbp.in/restaurants-list/${id}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -105,11 +105,12 @@ class RestaurantDetails extends Component {
               <p className="specific-restaurant-location">{location}</p>
               <div className="rating-cost-container">
                 <div className="specific-restaurant-rating-container">
-                  <AiFillStar className="star" />
-                  <p className="specific-restaurant-rating">{rating}</p>
-                  <br />
+                  <div className="rating-container">
+                    <AiFillStar className="star" />
+                    <p className="specific-restaurant-rating">{rating}</p>
+                  </div>
                   <p className="specific-restaurant-reviews">
-                    {reviewsCount} Ratings
+                    {reviewsCount}+ Ratings
                   </p>
                 </div>
                 <hr className="line" />

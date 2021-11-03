@@ -53,7 +53,6 @@ class ReactSlider extends Component {
 
   renderSliderListView = () => {
     const {sliderImages} = this.state
-    console.log(sliderImages)
     const settings = {
       dots: true,
       autoplay: true,
