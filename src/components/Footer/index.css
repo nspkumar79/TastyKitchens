@@ -6,6 +6,12 @@
   background-color: #0f172a;
   height: 30vh;
   margin-top: 20px;
+  padding: 40px;
+}
+@media screen and (min-width: 768px) {
+  .footer-container {
+    padding: 100px;
+  }
 }
 .footer-heading-container {
   display: flex;
@@ -63,5 +69,6 @@
 @media screen and (min-width: 768px) {
   .social-icon {
     margin-right: 40px;
+    font-size: 40px;
   }
 }

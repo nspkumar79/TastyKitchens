@@ -1,7 +1,6 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
 import {AiFillStar} from 'react-icons/ai'
 
 import Header from '../Header'
@@ -94,29 +93,38 @@ class RestaurantDetails extends Component {
       costForTwo,
       cuisine,
     } = restaurantData
+
     return (
       <>
         <div className="specific-restaurant-details-container">
           <div className="restaurant-banner-container">
-            <img src={imageUrl} alt="" className="specific-restaurant-image" />
-            <div className="banner-details-container">
-              <h1 className="specific-restaurant-name">{name}</h1>
-              <p className="specific-restaurant-cuisine">{cuisine}</p>
-              <p className="specific-restaurant-location">{location}</p>
-              <div className="rating-cost-container">
-                <div className="specific-restaurant-rating-container">
-                  <div className="rating-container">
-                    <AiFillStar className="star" />
-                    <p className="specific-restaurant-rating">{rating}</p>
+            <div className="banner-responsive-container">
+              <img
+                src={imageUrl}
+                alt=""
+                className="specific-restaurant-image"
+              />
+              <div className="banner-details-container">
+                <h1 className="specific-restaurant-name">{name}</h1>
+                <p className="specific-restaurant-cuisine">{cuisine}</p>
+                <p className="specific-restaurant-location">{location}</p>
+                <div className="rating-cost-container">
+                  <div className="specific-restaurant-rating-container">
+                    <div className="rating-container">
+                      <AiFillStar className="restaurant-details-star" />
+                      <p className="specific-restaurant-rating">{rating}</p>
+                    </div>
+                    <p className="specific-restaurant-reviews">
+                      {reviewsCount}+ Ratings
+                    </p>
                   </div>
-                  <p className="specific-restaurant-reviews">
-                    {reviewsCount}+ Ratings
-                  </p>
-                </div>
-                <hr className="line" />
-                <div className="cost-container">
-                  <p className="specific-restaurant-cost">{costForTwo}</p>
-                  <p className="specific-restaurant-cost-text">Cost for two</p>
+                  <hr className="line" />
+                  <div className="cost-container">
+                    <p className="specific-restaurant-cost">{costForTwo}</p>
+                    <p className="specific-restaurant-cost-text">
+                      Cost for two
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

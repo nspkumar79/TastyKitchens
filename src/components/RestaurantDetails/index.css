@@ -1,3 +1,8 @@
+.specific-restaurant-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .restaurant-banner-container {
   background-image: url('https://res.cloudinary.com/nsp/image/upload/v1635842203/tastyKitchens/itembg-frame_cx7mgh.png');
   width: 100%;
@@ -8,6 +13,19 @@
     padding: 32px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
+  }
+}
+.banner-responsive-container {
+  display: flex;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .banner-responsive-container {
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 }
 @media screen and (max-width: 768px) {
@@ -97,13 +115,14 @@
   align-items: center;
   margin-bottom: 0px;
 }
-.star {
+.restaurant-details-star {
   font-size: 20px;
   color: #ffffff;
   margin-top: 0px;
   margin-bottom: 0px;
   margin-right: 4px;
 }
+
 .specific-restaurant-rating {
   font-family: DM Sans;
   font-style: normal;
@@ -159,7 +178,20 @@
   margin-top: 4px;
   margin-bottom: 0px;
 }
-
+.food-item-list-container {
+  width: 90%;
+  list-style-type: none;
+  padding-left: 0px;
+}
+@media screen and (min-width: 768px) {
+  .food-item-list-container {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
 .restaurant-error-view-container {
   display: flex;
   flex-direction: column;
