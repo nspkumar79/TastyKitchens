@@ -104,7 +104,7 @@ class RestaurantFoodItem extends Component {
               className="food-item-button"
               onClick={this.onClickedAdd}
             >
-              ADD
+              Add
             </button>
           )}
         </div>

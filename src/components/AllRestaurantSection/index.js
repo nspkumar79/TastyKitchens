@@ -31,7 +31,7 @@ const apiStatusConstants = {
 class AllRestaurantSection extends Component {
   state = {
     restaurantList: [],
-    activeOptionId: '',
+    activeOptionId: 'Lowest',
     currentPage: 0,
     apiStatus: apiStatusConstants.initial,
   }
@@ -46,9 +46,9 @@ class AllRestaurantSection extends Component {
     })
     const jwtToken = Cookies.get('jwt_token')
     const {activeOptionId, currentPage} = this.state
-    const apiUrl = `https://apis.ccbp.in/restaurants-list?sort_by_rating=${activeOptionId}&offset=${
+    const apiUrl = `https://apis.ccbp.in/restaurants-list?offset=${
       currentPage * 9
-    }&limit=9`
+    }&limit=9&sort_by_rating=${activeOptionId}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -184,7 +184,7 @@ class AllRestaurantSection extends Component {
               />
             </button>
             <span testid="active-page-number" className="current-page">
-              {currentPage + 1} 0f 4
+              {currentPage + 1}
             </span>
             <button
               type="button"

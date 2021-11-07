@@ -30,8 +30,7 @@ class LoginForm extends Component {
     history.replace('/')
   }
 
-  onSubmitFailure = () => {
-    const errorMsg = 'Please enter a valid Username & Password'
+  onSubmitFailure = errorMsg => {
     this.setState({showSubmitError: true, errorMsg})
   }
 
@@ -114,8 +113,8 @@ class LoginForm extends Component {
             className="login-website-logo-desktop-image"
             alt="website logo"
           />
-          <p className="tasty-text">Tasty Kitchens</p>
-          <p className="login-text">Login</p>
+          <h1 className="tasty-text">Tasty Kitchens</h1>
+          <h1 className="login-text">Login</h1>
           <div className="input-container">{this.renderUsernameField()}</div>
           <div className="input-container">{this.renderPasswordField()}</div>
           {showSubmitError && <p className="error-message">{errorMsg}</p>}
