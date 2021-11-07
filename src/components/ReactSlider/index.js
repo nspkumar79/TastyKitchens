@@ -66,7 +66,11 @@ class ReactSlider extends Component {
         <Slider {...settings}>
           {sliderImages.map(eachImage => (
             <div>
-              <img className="slider-image" src={eachImage.imageUrl} alt="" />
+              <img
+                className="slider-image"
+                src={eachImage.imageUrl}
+                alt="offer"
+              />
             </div>
           ))}
         </Slider>
@@ -83,7 +87,7 @@ class ReactSlider extends Component {
   )
 
   renderLoadingView = () => (
-    <div className="slider-loader-container">
+    <div testid="restaurants-offers-loader" className="slider-loader-container">
       <Loader type="Oval" color="#F7931E" height="50" width="50" />
     </div>
   )

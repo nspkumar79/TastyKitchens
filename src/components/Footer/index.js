@@ -1,7 +1,9 @@
-import {FaPinterestSquare} from 'react-icons/fa'
-import {BsInstagram, BsTwitter} from 'react-icons/bs'
-
-import {AiFillFacebook} from 'react-icons/ai'
+import {
+  FaPinterestSquare,
+  FaInstagram,
+  FaTwitter,
+  FaFacebookSquare,
+} from 'react-icons/fa'
 
 import './index.css'
 
@@ -11,7 +13,7 @@ const Footer = () => (
       <img
         src="https://res.cloudinary.com/nsp/image/upload/v1635840304/tastyKitchens/logowhite_t8wfhc.png"
         alt=""
-        className="footer-heading-logo"
+        className="website-footer-logo"
       />
       <h1 className="footer-heading">Tasty Kitchens</h1>
     </div>
@@ -19,10 +21,13 @@ const Footer = () => (
       The only thing we are serious about is food. Contact us on
     </p>
     <div className="social-container">
-      <FaPinterestSquare className="social-icon" />
-      <BsInstagram className="social-icon" />
-      <BsTwitter className="social-icon" />
-      <AiFillFacebook className="social-icon" />
+      <FaPinterestSquare
+        testid="pintrest-social-icon"
+        className="social-icon"
+      />
+      <FaInstagram testid="instagram-social-icon" className="social-icon" />
+      <FaTwitter testid="twitter-social-icon" className="social-icon" />
+      <FaFacebookSquare testid="facebook-social-icon" className="social-icon" />
     </div>
   </div>
 )

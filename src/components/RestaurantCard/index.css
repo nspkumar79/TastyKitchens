@@ -7,6 +7,7 @@
 .restaurant-item {
   width: 100%;
   margin-bottom: 24px;
+  display: flex;
 }
 @media screen and (min-width: 768px) {
   .restaurant-item {

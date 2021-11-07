@@ -21,7 +21,6 @@ class RestaurantDetails extends Component {
     restaurantData: {},
     foodItemData: [],
     apiStatus: apiStatusConstants.initial,
-    quantity: 1,
   }
 
   componentDidMount() {
@@ -101,7 +100,7 @@ class RestaurantDetails extends Component {
             <div className="banner-responsive-container">
               <img
                 src={imageUrl}
-                alt=""
+                alt="restaurant"
                 className="specific-restaurant-image"
               />
               <div className="banner-details-container">
@@ -144,7 +143,10 @@ class RestaurantDetails extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="restaurant-loader-container">
+    <div
+      testid="restaurant-details-loader"
+      className="restaurant-loader-container"
+    >
       <Loader type="Oval" color="#F7931E" height="50" width="50" />
     </div>
   )
@@ -166,17 +168,6 @@ class RestaurantDetails extends Component {
       </button>
     </div>
   )
-
-  onDecrementQuantity = () => {
-    const {quantity} = this.state
-    if (quantity > 1) {
-      this.setState(prevState => ({quantity: prevState.quantity - 1}))
-    }
-  }
-
-  onIncrementQuantity = () => {
-    this.setState(prevState => ({quantity: prevState.quantity + 1}))
-  }
 
   renderRestaurantDetails = () => {
     const {apiStatus} = this.state
