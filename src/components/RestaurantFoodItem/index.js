@@ -12,6 +12,7 @@ class RestaurantFoodItem extends Component {
     const {id} = eachFoodItem
     const buttonStatus = localStorage.getItem(`isButtonClicked${id}`)
     const quantityStatus = localStorage.getItem(`quantity${id}`)
+
     this.setState({
       isButtonClicked: buttonStatus,
       itemQuantity: quantityStatus,
@@ -23,28 +24,33 @@ class RestaurantFoodItem extends Component {
     const {eachFoodItem} = this.props
     const {imageUrl, name, cost} = eachFoodItem
     const {id} = eachFoodItem
-    const cartData = localStorage.getItem('cartData')
-    const parsedCardData = JSON.parse(cartData)
+    const localCartData = localStorage.getItem('cartData')
+    const parsedCartData = JSON.parse(localCartData)
 
     const quantityKey = `quantity${id}`
     const buttonKey = `isButtonClicked${id}`
     localStorage.setItem(quantityKey, itemQuantity)
     localStorage.setItem(buttonKey, isButtonClicked)
 
-    if (parsedCardData === null) {
-      const updatedParsedCardData = []
-      localStorage.setItem('cardData', JSON.stringify(updatedParsedCardData))
-    } else {
-      const updatedParsedCardData = parsedCardData
+    if (parsedCartData === null) {
+      const updatedParsedCartData = []
+
       if (isButtonClicked === true) {
         const cartItem = {id, name, cost, imageUrl, quantity: itemQuantity}
-        const updatedCart = updatedParsedCardData.filter(
+        updatedParsedCartData.push(cartItem)
+        localStorage.setItem('cartData', JSON.stringify(updatedParsedCartData))
+      }
+    } else {
+      const updatedCartData = parsedCartData
+      if (isButtonClicked === true) {
+        const cartItem = {id, name, cost, imageUrl, quantity: itemQuantity}
+        const updatedCart = updatedCartData.filter(
           eachItem => eachItem.id !== id,
         )
         updatedCart.push(cartItem)
         localStorage.setItem('cartData', JSON.stringify(updatedCart))
       } else {
-        const updatedCart = updatedParsedCardData.filter(
+        const updatedCart = updatedCartData.filter(
           eachItem => eachItem.id !== id,
         )
         localStorage.setItem('cartData', JSON.stringify(updatedCart))
