@@ -116,8 +116,9 @@ class RestaurantFoodItem extends Component {
                 testid="decrement-count"
                 type="button"
                 className="minus-button"
+                onClick={this.onMinusClicked}
               >
-                <BsDashSquare onClick={this.onMinusClicked} />
+                <BsDashSquare />
               </button>
               <p testid="active-count" className="item-quantity-number">
                 {itemQuantity}
@@ -126,8 +127,9 @@ class RestaurantFoodItem extends Component {
                 testid="increment-count"
                 type="button"
                 className="plus-button"
+                onClick={this.onPlusClicked}
               >
-                <BsPlusSquare onClick={this.onPlusClicked} />
+                <BsPlusSquare />
               </button>
             </div>
           ) : (
