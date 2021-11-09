@@ -1,11 +1,12 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import CartItem from '../CartItem'
 import Header from '../Header'
 import Footer from '../Footer'
 import './index.css'
 
 class Cart extends Component {
-  state = {cartData: []}
+  state = {cartData: [], orderStatus: false}
 
   componentDidMount() {
     const cartData = localStorage.getItem('cartData')
@@ -13,46 +14,120 @@ class Cart extends Component {
     if (parseCartData === null || parseCartData.length === 0) {
       this.setState({cartStatus: false})
     } else {
+      const cartAmounts = []
+
+      if (parseCartData.length > 0) {
+        parseCartData.forEach(eachItem => {
+          const totalItemAmount = eachItem.cost * eachItem.quantity
+          cartAmounts.push(totalItemAmount)
+        })
+        const totalCartAmount = cartAmounts.reduce(
+          (previousScore, currentScore) => previousScore + currentScore,
+        )
+        this.setState({totalCartAmount})
+      }
       this.setState({cartData: parseCartData, cartStatus: true})
     }
   }
 
+  onClickPlaceOrder = () => {
+    this.setState({orderStatus: true})
+  }
+
+  onChangeTotalAmount = value => {
+    this.setState(prev => ({totalCartAmount: prev.totalCartAmount + value}))
+  }
+
+  updateCartData = () => {
+    const {cartData} = this.state
+    if (cartData.length > 0) {
+      localStorage.setItem('cartData', cartData)
+    } else {
+      localStorage.removeItem('cartData')
+    }
+  }
+
+  onDeleteCartItem = id => {
+    const {cartData} = this.state
+    const updatedCartData = cartData.filter(eachItem => eachItem.id !== id)
+    this.setState({cartData: updatedCartData}, this.updateCartData)
+  }
+
   render() {
-    const {cartData, cartStatus} = this.state
-    console.log(cartData)
+    const {cartData, cartStatus, orderStatus, totalCartAmount} = this.state
+
     return (
       <>
-        {cartStatus ? (
-          <div>
-            <Header />
-            <div className="cart-container">
-              <div className="cart-responsive-container">
-                <ul className="cart-list-container">
-                  <li className="cart-desktop-list-header">
-                    <p className="list-header-name">Item</p>
-                    <p className="list-header-name">Quantity</p>
-                    <p className="list-header-name">Price</p>
-                  </li>
-                  {cartData.map(eachItem => (
-                    <CartItem eachItem={eachItem} key={eachItem.id} />
-                  ))}
-                </ul>
-                <hr className="cart-line" />
-                <div className="total-cart-amount-container">
-                  <p className="total-order-text">Order Total : </p>
-                  <p className="total-order-amount">
-                    <span>₹</span>1000
-                  </p>
+        {cartStatus && totalCartAmount > 0 ? (
+          <>
+            {!orderStatus ? (
+              <div>
+                <Header />
+                <div className="cart-container">
+                  <div className="cart-responsive-container">
+                    <ul className="cart-list-container">
+                      <li className="cart-desktop-list-header">
+                        <p className="list-header-name">Item</p>
+                        <p className="list-header-name">Quantity</p>
+                        <p className="list-header-name">Price</p>
+                      </li>
+                      {cartData.map(eachItem => (
+                        <CartItem
+                          eachItem={eachItem}
+                          key={eachItem.id}
+                          onChangeTotalAmount={this.onChangeTotalAmount}
+                          onDeleteCartItem={this.onDeleteCartItem}
+                        />
+                      ))}
+                    </ul>
+                    <hr className="cart-line" />
+                    <div className="total-cart-amount-container">
+                      <p className="total-order-text">Order Total : </p>
+                      <p testid="total-price" className="total-order-amount">
+                        <span>₹</span>
+                        {totalCartAmount}
+                      </p>
+                    </div>
+                    <div className="place-order-button-container">
+                      <button
+                        type="button"
+                        className="cart-place-order-button"
+                        onClick={this.onClickPlaceOrder}
+                      >
+                        Place Order
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="place-order-button-container">
-                  <button type="button" className="cart-place-order-button">
-                    Place Order
-                  </button>
-                </div>
+                <Footer />
               </div>
-            </div>
-            <Footer />
-          </div>
+            ) : (
+              <>
+                <Header />
+                <div className="order-successful-container">
+                  <div className="order-successful-responsive-container">
+                    <img
+                      className="order-successful-image"
+                      src="https://res.cloudinary.com/nsp/image/upload/v1636426713/tastyKitchens/successful_1x_micicp.png"
+                      alt=""
+                    />
+                    <h1 className="order-successful-heading">
+                      Payment Successful
+                    </h1>
+                    <p className="order-successful-para">
+                      Thank you for ordering <br />
+                      Your payment is successfully completed.
+                    </p>
+                    <Link to="/">
+                      <button type="button" className="order-successful-button">
+                        Go To Home Page
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </>
+            )}
+          </>
         ) : (
           <div>
             <Header />
@@ -61,15 +136,17 @@ class Cart extends Component {
                 <img
                   className="empty-cart-image"
                   src="https://res.cloudinary.com/nsp/image/upload/v1636379708/tastyKitchens/empty_cart_1_1x_o1nekx.png"
-                  alt=""
+                  alt="empty cart"
                 />
                 <h1 className="empty-cart-heading">No Orders Yet!</h1>
                 <p className="empty-cart-para">
                   Your cart is empty. Add something from the menu.
                 </p>
-                <button className="empty-cart-button" type="button">
-                  Order Now
-                </button>
+                <Link to="/">
+                  <button className="empty-cart-button" type="button">
+                    Order Now
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

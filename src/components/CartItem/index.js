@@ -7,21 +7,51 @@ class CartItem extends Component {
 
   componentDidMount() {
     const {eachItem} = this.props
-    const {quantity} = eachItem
+    const {cost, quantity} = eachItem
+    const totalItemCost = cost * quantity
+    this.setState({totalItemCost, quantity})
   }
 
-  onDecrementClicked = () => {}
+  onDecrementClicked = () => {
+    const {onChangeTotalAmount, eachItem, onDeleteCartItem} = this.props
+    const {cost, id} = eachItem
+    const {quantity} = this.state
+    if (quantity > 1) {
+      onChangeTotalAmount(-1 * cost)
+      this.setState(prev => ({
+        quantity: prev.quantity - 1,
+        totalItemCost: prev.totalItemCost - cost,
+      }))
+    } else {
+      onDeleteCartItem(id)
+      onChangeTotalAmount(-1 * cost)
+      localStorage.removeItem(`quantity${id}`)
+      localStorage.removeItem(`isButtonClicked${id}`)
+    }
+  }
 
-  onIncrementClicked = () => {}
+  onIncrementClicked = () => {
+    const {onChangeTotalAmount, eachItem} = this.props
+    const {cost} = eachItem
+    onChangeTotalAmount(cost)
+    this.setState(prev => ({
+      quantity: prev.quantity + 1,
+      totalItemCost: prev.totalItemCost + cost,
+    }))
+  }
 
   render() {
     const {eachItem} = this.props
-    const {imageUrl, name, cost, quantity} = eachItem
-    const totalItemCost = cost * quantity
+    const {imageUrl, name} = eachItem
+    const {totalItemCost, quantity} = this.state
     return (
       <>
         <li testid="cartItem" className="mobile-list-cart-item">
-          <img className="mobile-cart-item-image" src={imageUrl} alt="" />
+          <img
+            className="mobile-cart-item-image"
+            src={imageUrl}
+            alt={imageUrl}
+          />
           <div>
             <h1 className="cart-Item-name">{name}</h1>
             <div className="cartItem-quantity-container">
@@ -53,7 +83,11 @@ class CartItem extends Component {
         </li>
         <li testid="cartItem" className="desktop-list-cart-item">
           <div className="desktop-item-container">
-            <img className="desktop-cart-item-image" src={imageUrl} alt="" />
+            <img
+              className="desktop-cart-item-image"
+              src={imageUrl}
+              alt={imageUrl}
+            />
             <h1 className="desktop-cart-item-name">{name}</h1>
           </div>
           <div className="desktop-cartItem-quantity-container">
