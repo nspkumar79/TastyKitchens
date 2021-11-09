@@ -82,10 +82,9 @@ class Cart extends Component {
                     </ul>
                     <hr className="cart-line" />
                     <div className="total-cart-amount-container">
-                      <p className="total-order-text">Order Total : </p>
+                      <p className="total-order-text">Order Total:</p>
                       <p testid="total-price" className="total-order-amount">
-                        <span>₹</span>
-                        {totalCartAmount}
+                        ₹{totalCartAmount}
                       </p>
                     </div>
                     <div className="place-order-button-container">
@@ -138,7 +137,7 @@ class Cart extends Component {
                   src="https://res.cloudinary.com/nsp/image/upload/v1636379708/tastyKitchens/empty_cart_1_1x_o1nekx.png"
                   alt="empty cart"
                 />
-                <h1 className="empty-cart-heading">No Orders Yet!</h1>
+                <h1 className="empty-cart-heading">No Order Yet!</h1>
                 <p className="empty-cart-para">
                   Your cart is empty. Add something from the menu.
                 </p>

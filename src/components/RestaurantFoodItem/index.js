@@ -1,6 +1,5 @@
 import {Component} from 'react'
 import {AiFillStar} from 'react-icons/ai'
-import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
 
 import './index.css'
 
@@ -118,7 +117,7 @@ class RestaurantFoodItem extends Component {
                 className="minus-button"
                 onClick={this.onMinusClicked}
               >
-                <BsDashSquare />
+                -
               </button>
               <p testid="active-count" className="item-quantity-number">
                 {itemQuantity}
@@ -129,7 +128,7 @@ class RestaurantFoodItem extends Component {
                 className="plus-button"
                 onClick={this.onPlusClicked}
               >
-                <BsPlusSquare />
+                +
               </button>
             </div>
           ) : (
