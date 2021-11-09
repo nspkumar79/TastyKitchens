@@ -31,7 +31,14 @@ class Cart extends Component {
   }
 
   onClickPlaceOrder = () => {
-    this.setState({orderStatus: true})
+    const {cartData} = this.state
+    cartData.forEach(eachItem => {
+      const {id} = eachItem
+      localStorage.removeItem(`quantity${id}`)
+      localStorage.removeItem(`isButtonClicked${id}`)
+    })
+    localStorage.removeItem('cartData')
+    this.setState({orderStatus: true, cartData: []})
   }
 
   onChangeTotalAmount = value => {

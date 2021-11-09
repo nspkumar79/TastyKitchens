@@ -13,8 +13,8 @@ class RestaurantFoodItem extends Component {
     const quantityStatus = localStorage.getItem(`quantity${id}`)
 
     this.setState({
-      isButtonClicked: buttonStatus,
-      itemQuantity: quantityStatus,
+      isButtonClicked: JSON.parse(buttonStatus),
+      itemQuantity: JSON.parse(quantityStatus),
     })
   }
 
@@ -34,7 +34,7 @@ class RestaurantFoodItem extends Component {
     if (parsedCartData === null) {
       const updatedParsedCartData = []
 
-      if (isButtonClicked === true) {
+      if (isButtonClicked === true && itemQuantity > 0) {
         const cartItem = {id, name, cost, imageUrl, quantity: itemQuantity}
         updatedParsedCartData.push(cartItem)
         localStorage.setItem('cartData', JSON.stringify(updatedParsedCartData))
@@ -60,7 +60,7 @@ class RestaurantFoodItem extends Component {
   onClickedAdd = () => {
     this.setState(
       prev => ({
-        isButtonClicked: !prev.isButtonClicked,
+        isButtonClicked: true,
         itemQuantity: prev.itemQuantity + 1,
       }),
       this.updateLocalStorage,
@@ -69,18 +69,19 @@ class RestaurantFoodItem extends Component {
 
   onMinusClicked = () => {
     const {itemQuantity} = this.state
-    if (itemQuantity === 1) {
+    if (itemQuantity < 2) {
       this.setState(
-        prev => ({
-          itemQuantity: prev.itemQuantity - 1,
-          isButtonClicked: !prev.isButtonClicked,
-        }),
+        {
+          itemQuantity: 0,
+          isButtonClicked: false,
+        },
         this.updateLocalStorage,
       )
-    } else if (itemQuantity > 1) {
+    } else {
       this.setState(
         prev => ({
           itemQuantity: prev.itemQuantity - 1,
+          isButtonClicked: true,
         }),
         this.updateLocalStorage,
       )
@@ -88,10 +89,9 @@ class RestaurantFoodItem extends Component {
   }
 
   onPlusClicked = () => {
-    this.setState(
-      prev => ({itemQuantity: prev.itemQuantity + 1}),
-      this.updateLocalStorage,
-    )
+    const {itemQuantity} = this.state
+    const updatedItemQuantity = itemQuantity + 1
+    this.setState({itemQuantity: updatedItemQuantity}, this.updateLocalStorage)
   }
 
   render() {
