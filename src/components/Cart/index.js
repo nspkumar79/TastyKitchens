@@ -31,12 +31,6 @@ class Cart extends Component {
   }
 
   onClickPlaceOrder = () => {
-    const {cartData} = this.state
-    cartData.forEach(eachItem => {
-      const {id} = eachItem
-      localStorage.removeItem(`quantity${id}`)
-      localStorage.removeItem(`isButtonClicked${id}`)
-    })
     localStorage.removeItem('cartData')
     this.setState({orderStatus: true, cartData: []})
   }
@@ -48,7 +42,7 @@ class Cart extends Component {
   updateCartData = () => {
     const {cartData} = this.state
     if (cartData.length > 0) {
-      localStorage.setItem('cartData', cartData)
+      localStorage.setItem('cartData', JSON.stringify(cartData))
     } else {
       localStorage.removeItem('cartData')
     }
@@ -89,7 +83,7 @@ class Cart extends Component {
                     </ul>
                     <hr className="cart-line" />
                     <div className="total-cart-amount-container">
-                      <p className="total-order-text">Order Total:</p>
+                      <h1 className="total-order-text">Order Total:</h1>
                       <p testid="total-price" className="total-order-amount">
                         ₹{totalCartAmount}
                       </p>

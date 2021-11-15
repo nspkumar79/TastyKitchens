@@ -65,7 +65,7 @@ class ReactSlider extends Component {
       <div className="image-container">
         <Slider {...settings}>
           {sliderImages.map(eachImage => (
-            <div>
+            <div key={eachImage.id}>
               <img
                 className="slider-image"
                 src={eachImage.imageUrl}

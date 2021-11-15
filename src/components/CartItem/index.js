@@ -12,21 +12,36 @@ class CartItem extends Component {
     this.setState({totalItemCost, quantity})
   }
 
+  updateLocalStorage = () => {
+    const {quantity} = this.state
+    const {eachItem} = this.props
+    const {imageUrl, name, cost, id} = eachItem
+
+    const localCartData = localStorage.getItem('cartData')
+    const parsedCartData = JSON.parse(localCartData)
+    const updatedCartData = parsedCartData
+    const cartItem = {id, name, cost, imageUrl, quantity}
+    const updatedCart = updatedCartData.filter(item => item.id !== id)
+    updatedCart.push(cartItem)
+    localStorage.setItem('cartData', JSON.stringify(updatedCart))
+  }
+
   onDecrementClicked = () => {
     const {onChangeTotalAmount, eachItem, onDeleteCartItem} = this.props
     const {cost, id} = eachItem
     const {quantity} = this.state
     if (quantity > 1) {
       onChangeTotalAmount(-1 * cost)
-      this.setState(prev => ({
-        quantity: prev.quantity - 1,
-        totalItemCost: prev.totalItemCost - cost,
-      }))
+      this.setState(
+        prev => ({
+          quantity: prev.quantity - 1,
+          totalItemCost: prev.totalItemCost - cost,
+        }),
+        this.updateLocalStorage,
+      )
     } else {
-      onDeleteCartItem(id)
       onChangeTotalAmount(-1 * cost)
-      localStorage.removeItem(`quantity${id}`)
-      localStorage.removeItem(`isButtonClicked${id}`)
+      onDeleteCartItem(id)
     }
   }
 
@@ -34,10 +49,13 @@ class CartItem extends Component {
     const {onChangeTotalAmount, eachItem} = this.props
     const {cost} = eachItem
     onChangeTotalAmount(cost)
-    this.setState(prev => ({
-      quantity: prev.quantity + 1,
-      totalItemCost: prev.totalItemCost + cost,
-    }))
+    this.setState(
+      prev => ({
+        quantity: prev.quantity + 1,
+        totalItemCost: prev.totalItemCost + cost,
+      }),
+      this.updateLocalStorage,
+    )
   }
 
   render() {

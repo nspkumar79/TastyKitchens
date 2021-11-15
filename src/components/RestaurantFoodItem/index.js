@@ -9,27 +9,33 @@ class RestaurantFoodItem extends Component {
   componentDidMount() {
     const {eachFoodItem} = this.props
     const {id} = eachFoodItem
-    const buttonStatus = localStorage.getItem(`isButtonClicked${id}`)
-    const quantityStatus = localStorage.getItem(`quantity${id}`)
-
-    this.setState({
-      isButtonClicked: JSON.parse(buttonStatus),
-      itemQuantity: JSON.parse(quantityStatus),
-    })
+    const cartData = localStorage.getItem('cartData')
+    const parsedCartData = JSON.parse(cartData)
+    if (parsedCartData === null) {
+      this.setState({
+        isButtonClicked: false,
+        itemQuantity: 0,
+      })
+    } else {
+      const presentCartData = parsedCartData.filter(
+        eachItem => eachItem.id === id,
+      )
+      if (presentCartData.length > 0) {
+        this.setState({
+          isButtonClicked: true,
+          itemQuantity: presentCartData[0].quantity,
+        })
+      }
+    }
   }
 
   updateLocalStorage = () => {
     const {isButtonClicked, itemQuantity} = this.state
     const {eachFoodItem} = this.props
-    const {imageUrl, name, cost} = eachFoodItem
-    const {id} = eachFoodItem
+    const {imageUrl, name, cost, id} = eachFoodItem
+
     const localCartData = localStorage.getItem('cartData')
     const parsedCartData = JSON.parse(localCartData)
-
-    const quantityKey = `quantity${id}`
-    const buttonKey = `isButtonClicked${id}`
-    localStorage.setItem(quantityKey, itemQuantity)
-    localStorage.setItem(buttonKey, isButtonClicked)
 
     if (parsedCartData === null) {
       const updatedParsedCartData = []
@@ -59,10 +65,10 @@ class RestaurantFoodItem extends Component {
 
   onClickedAdd = () => {
     this.setState(
-      prev => ({
+      {
         isButtonClicked: true,
-        itemQuantity: prev.itemQuantity + 1,
-      }),
+        itemQuantity: 1,
+      },
       this.updateLocalStorage,
     )
   }
@@ -98,6 +104,8 @@ class RestaurantFoodItem extends Component {
     const {eachFoodItem} = this.props
     const {imageUrl, name, cost, rating} = eachFoodItem
     const {isButtonClicked, itemQuantity} = this.state
+    console.log(isButtonClicked)
+    console.log(itemQuantity)
 
     return (
       <li testid="foodItem" className="food-item-container">
